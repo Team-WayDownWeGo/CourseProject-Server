@@ -35,10 +35,10 @@ module.exports = ({ data }) => {
             const currentUser = req.user;
             data.getForumPostById(id)
                 .then(forumPost => {
-                    res.render('forum/forum-post-page', { result: { forumPost, currentUser, user: req.user } });
+                    res.json(forumPost);
                 })
                 .catch((err) => {
-                    res.status(500).redirect('/500');
+                    res.json(err);
                 });
         },
         addComment(req, res) { //
@@ -48,56 +48,69 @@ module.exports = ({ data }) => {
 
             data.addAnswerToForumPost(id, {
                     content: body.content,
-                    user: { username: req.user.username, points: req.user.progress.totalPoints }
+                    user: { username: 'Ivan' }
                 })
                 .then(() => {
-                    res.redirect('/forum/' + id)
+                    res.json({ message: "success" })
                 }).catch((err) => {
-                    res.status(500).redirect('/500');
+                    res.json(err)
                 });
         },
         addLikeToPost(req, res) {
             const id = req.params.id;
-
+            req.user = {
+                username: 'Pesho'
+            }
             data.incrementForumPostLikes(id)
                 .then(() => data.addUsernameToPostUsersLiked(id, req.user.username))
                 .then(() => {
-                    res.send('');
+                    res.json({ message: "success" })
                 }).catch((err) => {
-                    res.status(500).redirect('/500');
+                    res.json(err)
                 });
         },
         unlikePost(req, res) {
             const id = req.params.id;
+            req.user = {
+                username: 'Pesho'
+            }
 
             data.decrementForumPostLikes(id)
                 .then(() => data.removeUsernameFromPostUsersLiked(id, req.user.username))
                 .then(() => {
-                    res.send('');
+                    res.json({ message: "success" })
                 }).catch((err) => {
-                    res.status(500).redirect('/500');
+                    res.json(err)
                 });
         },
         addLikeToAnswer(req, res) {
             const postId = req.params.id;
             const answerId = req.params.answerid;
+            req.user = {
+                username: 'Pesho'
+            }
+
             data.incrementForumPostAnswerLikes(postId, answerId)
                 .then(() => data.addUsernameToPostAnswerUsersLiked(postId, answerId, req.user.username))
                 .then(() => {
-                    res.send('');
+                    res.json({ message: "success" })
                 }).catch((err) => {
-                    res.status(500).redirect('/500');
+                    res.json(err);
                 });
         },
         unlikePostAnswer(req, res) {
             const postId = req.params.id;
             const answerId = req.params.answerid;
+            req.user = {
+                username: 'Pesho'
+            }
+
             data.decrementForumPostAnswerLikes(postId, answerId)
                 .then(() => data.removeUsernameFromPostAnswerUsersLiked(postId, answerId, req.user.username))
                 .then(() => {
-                    res.send('');
+                    res.json({ message: "success" })
                 }).catch((err) => {
-                    res.status(500).redirect('/500');
+                    res.json(err);
                 });
         }
     };
