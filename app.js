@@ -1,9 +1,9 @@
 /* globals require  */
 
-const config = require('./config/'),
+const config = require('./config'),
     app = require('./config/application'),
     data = require('./data')(config),
-    // passport = require('passport'),
+    passport = require('passport'),
     controllers = require('./controllers')({ data });
 
 // multer = require('multer'),
