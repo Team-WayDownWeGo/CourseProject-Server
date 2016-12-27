@@ -30,16 +30,7 @@ const mongoose = require('mongoose'),
             maxlength: constants.MAX_NAME_LENGTH
         },
         passHash: { type: String, required: true },
-        salt: { type: String, required: true },
-        birthDate: { type: Date },
-        email: { type: String, match: constants.EMAIL_REGEX },
-        image: { type: String, default: '' },
-        competitions: [{
-            // TODO: decide on information
-        }],
-        facebookId: { type: String },
-        facebookToken: { type: String },
-        roles: [{ type: String, default: 'normal', minlength: constants.MIN_ROLE_LENGTH, maxlength: constants.MAX_ROLE_LENGTH }]
+        salt: { type: String, required: true }
     });
 
 userSchema.methods = {
@@ -54,9 +45,6 @@ userSchema.methods = {
     }
 };
 
-userSchema.statics.getOrganizatorMinimumPoints = function() {
-    return constants.ORGANIZATOR_MINIMALPOINTS;
-};
 
 mongoose.model('User', userSchema);
 
