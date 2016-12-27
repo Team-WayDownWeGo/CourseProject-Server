@@ -2,11 +2,11 @@
 'use strict';
 
 const mongoose = require('mongoose'),
-    encryptor = require('../utilities/encryptor'),
+    encryptor = require('../utilities/encryption'),
     Schema = mongoose.Schema,
     constants = require('../utilities/constants'),
 
-    const userSchema = new Schema({
+    userSchema = new Schema({
         username: {
             type: String,
             match: constants.USERNAME_REGEX,
@@ -39,7 +39,6 @@ const mongoose = require('mongoose'),
         }],
         facebookId: { type: String },
         facebookToken: { type: String },
-        progress: { type: progressbarSchema },
         roles: [{ type: String, default: 'normal', minlength: constants.MIN_ROLE_LENGTH, maxlength: constants.MAX_ROLE_LENGTH }]
     });
 

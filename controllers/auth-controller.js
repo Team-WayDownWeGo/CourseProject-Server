@@ -1,8 +1,8 @@
 'use strict';
 
-const User = require('../models/user');
+const User = require('../models/user-model');
 const passport = require('passport');
-const encryption = require('../utils/encryption');
+const encryption = require('../utilities/encryption');
 const config = require('../config');
 const jwt = require('jwt-simple');
 
@@ -19,7 +19,7 @@ function getToken(headers) {
     }
 };
 
-module.exports = () => {
+module.exports = ({ data }) => {
     return {
         registerUser(req, res) {
             let body = req.body;
@@ -96,14 +96,15 @@ module.exports = () => {
                 let decoded = jwt.decode(token, config.jwtSecret);
                 User.findOne({
                     username: decoded.username
-                }, function (err, user) {
+                }, function(err, user) {
                     if (err) throw err;
 
                     if (!user) {
                         return res.json({ success: false, message: 'User not found.' });
                     } else {
                         res.json({
-                            success: true, user: {
+                            success: true,
+                            user: {
                                 token,
                                 username: user.username,
                                 firstname: user.firstname,
