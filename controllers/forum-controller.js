@@ -24,8 +24,8 @@ module.exports = ({ data }) => {
                     description: body.description,
                     user: { username: 'Gosho' }
                 })
-                .then(() => {
-                    res.json({ message: 'success' })
+                .then((post) => {
+                    res.json({ message: 'success', id: post._id })
                 }).catch((err) => {
                     res.json(err);
                 });
