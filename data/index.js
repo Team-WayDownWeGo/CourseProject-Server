@@ -10,14 +10,15 @@ module.exports = function(config) {
     mongoose.connect(config.connectionString);
 
     const ForumPost = require('../models/forum-post-model'),
-        models = { ForumPost },
+        User = require('../models/user-model'),
+        models = { ForumPost, User },
         data = {};
 
     fs.readdirSync('./data')
         .filter(x => x.includes('-data'))
         .forEach(file => {
             console.log(file);
-            
+
             const dataModule =
                 require(path.join(__dirname, file))(models);
 

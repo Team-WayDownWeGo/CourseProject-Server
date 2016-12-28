@@ -30,7 +30,33 @@ const mongoose = require('mongoose'),
             maxlength: constants.MAX_NAME_LENGTH
         },
         passHash: { type: String, required: true },
-        salt: { type: String, required: true }
+        salt: { type: String, required: true },
+        inbox: [{
+            message: {
+                type: String,
+                required: true,
+                minlength: constants.MIN_MESSAGE_LENGTH,
+                maxlength: constants.MAX_MESSAGE_LENGTH
+            },
+            user: {
+                username: { type: String, required: true },
+                id: { type: String }
+            },
+            date: { type: Date, required: true },
+        }],
+        outbox: [{
+            message: {
+                type: String,
+                required: true,
+                minlength: constants.MIN_MESSAGE_LENGTH,
+                maxlength: constants.MAX_MESSAGE_LENGTH
+            },
+            user: {
+                username: { type: String, required: true },
+                id: { type: String }
+            },
+            date: { type: Date, required: true },
+        }]
     });
 
 userSchema.methods = {
