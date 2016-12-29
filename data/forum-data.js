@@ -153,7 +153,6 @@ module.exports = function(models) {
             });
         },
         decrementForumPostAnswerLikes(_id, answerId) {
-
             return new Promise((resolve, reject) => {
                 ForumPost.findOne({ '_id': _id })
                     .then((forumPost) => {

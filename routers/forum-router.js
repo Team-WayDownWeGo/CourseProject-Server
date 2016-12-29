@@ -4,7 +4,7 @@
 module.exports = ({ app, controllers }) => {
     const controller = controllers.forum;
 
-    app.get('/forum/', controller.loadForumPosts);
+    app.get('/forum/:page', controller.loadForumPosts);
     app.post('/forum/create', controller.createForumPost);
     app.get('/forum/:id', controller.getByID);
     app.post('/forum/:id/comment', controller.addComment);

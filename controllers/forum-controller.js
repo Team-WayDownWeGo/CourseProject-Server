@@ -6,12 +6,17 @@ const DEFAULT_PAGE = 1,
 module.exports = ({ data }) => {
     return {
         loadForumPosts(req, res) {
-            const page = Number(req.query.page || DEFAULT_PAGE);
+            const page = Number(req.params.page || DEFAULT_PAGE);
             Promise.all([data.getForumPosts({ page, pageSize: PAGE_SIZE }), data.getForumPostCount()])
                 .then(([forumPosts, allPostsCount]) => {
-                    const pages = Math.ceil(allPostsCount / PAGE_SIZE);
+                    const pageCount = Math.ceil(allPostsCount / PAGE_SIZE);
+                    // console.log('-------------------');
+                    // console.log(forumPosts);
+                    // console.log('-------------------');
+                    // this.postsInfo.posts = response.posts;
+                    // this.postsInfo.pageCount = response.pageCount;
 
-                    return res.json(forumPosts);
+                    return res.json({ forumPosts, pageCount });
                 })
                 .catch((err) => {
                     res.json(err);
@@ -95,7 +100,7 @@ module.exports = ({ data }) => {
                 .then(() => {
                     res.json({ message: "success" })
                 }).catch((err) => {
-                    res.json(err);
+                    res.json({ message: "error" });
                 });
         },
         unlikePostAnswer(req, res) {
@@ -110,7 +115,7 @@ module.exports = ({ data }) => {
                 .then(() => {
                     res.json({ message: "success" })
                 }).catch((err) => {
-                    res.json(err);
+                    res.json({ message: "error" });
                 });
         }
     };
