@@ -71,7 +71,7 @@ module.exports = ({ data }) => {
                     res.json(user);
                 })
                 .catch((err) => {
-                    res.json(user);
+                    res.json({ message: err });
                 });
         },
     }
