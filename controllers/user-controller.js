@@ -62,6 +62,17 @@ module.exports = ({ data }) => {
                 .catch(err => {
                     return res.json({ message: err });
                 })
-        }
+        },
+        getUserByUsername(req, res) { //
+            const username = req.params.username;
+            console.log(username);
+            data.getUserByUsername(username)
+                .then(user => {
+                    res.json(user);
+                })
+                .catch((err) => {
+                    res.json(user);
+                });
+        },
     }
 }

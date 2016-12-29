@@ -6,6 +6,7 @@ module.exports = ({ app, controllers }) => {
 
     // app.get('/forum/', controller.loadForumPosts);
     // app.post('/forum/create', controller.createForumPost);
+    app.get('/user/:username', controller.getUserByUsername);
     app.post('/user/message/:username', controller.sendMessage);
     app.get('/user/message/inbox', controller.getAllInboxMessages);
     app.get('/user/message/outbox', controller.getAllOutboxMessages);
