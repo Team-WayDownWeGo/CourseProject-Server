@@ -72,12 +72,14 @@ module.exports = function(models) {
         addAnswerToForumPost(forumPostId, answer) {
             answer.date = new Date();
             answer.likes = 0;
+
             return new Promise((resolve, reject) => {
                 ForumPost.findByIdAndUpdate({ '_id': forumPostId }, { $push: { 'answers': answer } },
                     (err) => {
                         if (err) {
                             return reject(err);
                         }
+
                         return resolve();
                     })
             });

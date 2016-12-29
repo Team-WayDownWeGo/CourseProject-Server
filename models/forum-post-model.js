@@ -17,7 +17,7 @@ const forumPostSchema = new Schema({
             type: String,
             required: true,
             minlength: constants.MIN_NAME_LENGTH
-        } 
+        }
     },
     date: { type: Date, required: true },
     likes: { type: Number, required: true },
@@ -30,8 +30,7 @@ const forumPostSchema = new Schema({
             maxlength: constants.MAX_FORUM_TITLE_LENGTH
         },
         user: {
-            username: { type: String, required: true },
-            points: { type: String, required: true }
+            username: { type: String, required: true }
         },
         date: { type: Date, required: true },
         likes: { type: Number, required: true },

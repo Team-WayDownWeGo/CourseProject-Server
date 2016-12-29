@@ -38,7 +38,7 @@ module.exports = ({ data }) => {
                     res.json(forumPost);
                 })
                 .catch((err) => {
-                    res.json(err);
+                    res.json({ message: 'error' });
                 });
         },
         addComment(req, res) { //
@@ -47,7 +47,7 @@ module.exports = ({ data }) => {
                 id = req.params.id;
 
             data.addAnswerToForumPost(id, {
-                    content: body.content,
+                    content: body.commentMessage,
                     user: { username: 'Ivan' }
                 })
                 .then(() => {
