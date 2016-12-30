@@ -6,6 +6,8 @@ const DEFAULT_PAGE = 1,
 module.exports = ({ data }) => {
     return {
         loadForumPosts(req, res) {
+
+            console.log('1');
             const page = Number(req.params.page || DEFAULT_PAGE);
             Promise.all([data.getForumPosts({ page, pageSize: PAGE_SIZE }), data.getForumPostCount()])
                 .then(([forumPosts, allPostsCount]) => {
