@@ -11,14 +11,13 @@ module.exports = function(config) {
 
     const ForumPost = require('../models/forum-post-model'),
         User = require('../models/user-model'),
-        models = { ForumPost, User },
+        Category = require('../models/category-model'),
+        models = { ForumPost, User, Category },
         data = {};
 
     fs.readdirSync('./data')
         .filter(x => x.includes('-data'))
         .forEach(file => {
-            console.log(file);
-
             const dataModule =
                 require(path.join(__dirname, file))(models);
 
