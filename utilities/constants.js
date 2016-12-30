@@ -2,7 +2,7 @@
 
 module.exports = {
     competitionStatus: ['passed', 'ongoing', 'upcoming'],
-    MIN_USERNAME_LENGTH: 5,
+    MIN_USERNAME_LENGTH: 3,
     MAX_USERNAME_LENGTH: 50,
     MIN_NAME_LENGTH: 3,
     MAX_NAME_LENGTH: 50,

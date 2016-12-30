@@ -59,19 +59,6 @@ const mongoose = require('mongoose'),
         }]
     });
 
-userSchema.methods = {
-    isValidPassword(password) {
-        const realPassHash = this.passHash,
-            currentPassHash = encryptor.getPassHash(this.salt, password);
-        if (currentPassHash === realPassHash) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-};
-
-
 mongoose.model('User', userSchema);
 
 module.exports = mongoose.model('User');

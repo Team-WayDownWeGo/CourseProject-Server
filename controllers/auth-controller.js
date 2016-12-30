@@ -22,22 +22,35 @@ const jwt = require('jwt-simple');
 module.exports = ({ data }) => {
     return {
         registerUser(req, res) {
-            let body = req.body;
+            const body = req.body;
+            let foundUser = false;
             const user = {
-                username: req.body.username,
-                firstName: req.body.firstName,
-                lastname: req.body.lastName,
-                passHash: req.body.password
+                username: body.username,
+                firstName: body.firstName,
+                lastName: body.lastName,
+                passHash: body.password
             };
-            console.log(user);
 
-            // if (data.getUserByUsername(user.username)) {
-            //     res.json({ message: `User with username '${user.username}' already exists.` });
-            //     return;
-            // }
 
-            data.createUser(user)
-                
+            data.getUserByUsername(user.username)
+                .then(user => {
+                    if (user) {
+                        foundUser = true;
+                        return res.json({ error: `User with username ${user.username} already exists.` });
+                    }
+                })
+                .then(() => {
+                    if (!foundUser) {
+                        data.createUser(user)
+                            .then(() => {
+                                res.json({ success: 'Registration successfull' });
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                                res.json({ error: 'Registration failed' });
+                            });
+                    }
+                });
         }
         // loginUser(req, res, next) {
         //     User.findOne({ username: req.body.username }, (err, user) => {

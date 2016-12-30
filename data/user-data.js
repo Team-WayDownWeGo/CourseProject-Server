@@ -9,8 +9,7 @@ module.exports = function(models) {
             return new Promise((resolve, reject) => {
                 const salt = hashing.getSalt(),
                     passHash = hashing.getPassHash(salt, user.passHash);
-                console.log('vutre vutre vutre');
-                const User = new User({
+                const newUser = new User({
                     username: user.username,
                     firstName: user.firstName,
                     lastName: user.lastName,
@@ -21,7 +20,7 @@ module.exports = function(models) {
                     if (err) {
                         return reject(err);
                     }
-
+                    
                     return resolve(newUser);
                 });
             });
@@ -32,7 +31,6 @@ module.exports = function(models) {
                     if (err) {
                         return reject(err);
                     }
-
                     return resolve(user);
                 });
             });
