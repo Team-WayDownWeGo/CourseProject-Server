@@ -12,11 +12,6 @@ module.exports = ({ data }) => {
             Promise.all([data.getForumPosts({ page, pageSize: PAGE_SIZE }), data.getForumPostCount()])
                 .then(([forumPosts, allPostsCount]) => {
                     const pageCount = Math.ceil(allPostsCount / PAGE_SIZE);
-                    // console.log('-------------------');
-                    // console.log(forumPosts);
-                    // console.log('-------------------');
-                    // this.postsInfo.posts = response.posts;
-                    // this.postsInfo.pageCount = response.pageCount;
 
                     return res.json({ forumPosts, pageCount });
                 })
@@ -27,10 +22,18 @@ module.exports = ({ data }) => {
         createForumPost(req, res) {
             const body = req.body;
             data.createForumPost({
+<<<<<<< HEAD
                 title: body.title,
                 description: body.description,
                 user: { username: 'Gosho' }
             })
+=======
+                    title: body.title,
+                    description: body.description,
+                    user: { username: 'Gosho' },
+                    category: body.category
+                })
+>>>>>>> 7973d4491fbd5aeac71c0d415e05b46d701fabd8
                 .then((post) => {
                     const postToBeAdded = {
                         title: post.title,
@@ -44,6 +47,8 @@ module.exports = ({ data }) => {
                 .then(id => {
                     res.json({ message: 'success', id })
                 }).catch((err) => {
+                    console.log('in error');
+                    console.log(err);
                     res.json(err);
                 });
         },
