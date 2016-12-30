@@ -35,7 +35,7 @@ module.exports = function(models) {
 
         addPostToCategory(title, post) {
             return new Promise((resolve, reject) => {
-                Category.findByIdAndUpdate({ title }, { $push: { 'competitions': post } },
+                Category.findOneAndUpdate({ title }, { $push: { 'competitions': post } },
                     (err, category) => {
                         if (err) {
                             return reject(err);

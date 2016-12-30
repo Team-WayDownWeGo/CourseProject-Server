@@ -10,13 +10,15 @@ module.exports = ({ data }) => {
         },
         createCategory(req, res) {
             const body = req.body;
+            console.log(body);
             data.createCategory({
                     title: body.title,
                     description: body.description
                 })
-                .then((post) => {
-                    res.json(post)
+                .then((category) => {
+                    res.json(category)
                 }).catch((err) => {
+                    console.log(err);
                     res.json({ message: 'error' });
                 });
         }
