@@ -3,23 +3,22 @@
 const User = require('../models/user-model');
 const passport = require('passport');
 const encryption = require('../utilities/encryption');
-const config = require('../config');
 const jwt = require('jwt-simple');
 
-// function getToken(headers) {
-//     if (headers && headers.authorization) {
-//         var parted = headers.authorization.split(' ');
-//         if (parted.length === 2) {
-//             return parted[1];
-//         } else {
-//             return null;
-//         }
-//     } else {
-//         return null;
-//     }
-// };
+function getToken(headers) {
+    if (headers && headers.authorization) {
+        var parted = headers.authorization.split(' ');
+        if (parted.length === 2) {
+            return parted[1];
+        } else {
+            return null;
+        }
+    } else {
+        return null;
+    }
+};
 
-module.exports = ({ data }) => {
+module.exports = ({ data, config }) => {
     return {
         registerUser(req, res) {
             const body = req.body;
@@ -51,36 +50,31 @@ module.exports = ({ data }) => {
                             });
                     }
                 });
-        }
-        // loginUser(req, res, next) {
-        //     User.findOne({ username: req.body.username }, (err, user) => {
-        //         if (err) {
-        //             throw err;
-        //         }
+        },
+        loginUser(req, res, next) {
+            const username = req.body.username,
+                password = req.body.password;
 
-        //         if (!user) {
-        //             res.json('{\'error\': \'Invalid username or password.\'}');
-        //         } else {
-        //             if (user.isValidPassword(req.body.password)) {
-        //                 let token = 'JWT ' + jwt.encode(user, config.jwtSecret);
-        //                 let result = {
-        //                     token,
-        //                     username: user.username,
-        //                     firstname: user.firstname,
-        //                     lastname: user.lastname,
-        //                     _id: user._id,
-        //                     about: user.about,
-        //                     signature: user.signature,
-        //                     imageDataUrl: user.imageDataUrl
-        //                 };
+            data.getUserByUsername(username)
+                .then(user => {
+                    if (!user) {
+                        return res.json({ error: `${username} is not registered user` });
+                    }
+                    if (user.isValidPassword(password)) {
+                        let token = 'JWT ' + jwt.encode(user, config.jwtSecret);
+                        let result = {
+                            token,
+                            username: user.username
+                        };
 
-        //                 return res.json({ result });
-        //             }
+                        return res.json({ result, success: `${username}, successfully logged in` });
+                    }
 
-        //             return res.json('{\'error\': \'Invalid username or password.\'}');
-        //         }
-        //     });
-        // },
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        },
         // logoutUser(req, res) {
         //     req.logout();
         //     res.sendStatus(200);

@@ -6,12 +6,12 @@ const fs = require('fs'),
 
 //module.exports = ({ app, data, controllers, uploadUserImage, uploadCompetitionImage, uploadCategoryImage }) => {
 
-module.exports = ({ app, controllers }) => {
+module.exports = ({ app, controllers, config }) => {
     fs.readdirSync('./routers')
         .filter(x => x.includes('-router'))
         .forEach(file => {
             // require(path.join(__dirname, file))({ app, data, controllers, authentication, uploadUserImage, uploadCompetitionImage, uploadCategoryImage });
-            require(path.join(__dirname, file))({ app, controllers });
+            require(path.join(__dirname, file))({ app, controllers, config });
         });
     app.all("*", (req, res) => {
         res.status(404);
