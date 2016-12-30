@@ -32,7 +32,17 @@ module.exports = ({ data }) => {
                     user: { username: 'Gosho' }
                 })
                 .then((post) => {
-                    res.json({ message: 'success', id: post._id })
+                    const postToBeAdded = {
+                        title: post.title,
+                        _id: post._id
+                    };
+
+                    data.addPostToCategory(post.category, postToBeAdded);
+
+                    return (post._id);
+                })
+                .then(id => {
+                    res.json({ message: 'success', id })
                 }).catch((err) => {
                     res.json(err);
                 });

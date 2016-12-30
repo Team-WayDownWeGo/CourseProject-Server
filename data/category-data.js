@@ -23,7 +23,7 @@ module.exports = function(models) {
 
         getCategory() {
             return new Promise((resolve, reject) => {
-                ForumPost.find({}, (err, category) => {
+                Category.find({}, (err, category) => {
                     if (err) {
                         return reject(err);
                     }
@@ -31,6 +31,19 @@ module.exports = function(models) {
                     return resolve(category);
                 })
             })
+        },
+
+        addPostToCategory(title, post) {
+            return new Promise((resolve, reject) => {
+                Category.findByIdAndUpdate({ title }, { $push: { 'competitions': post } },
+                    (err, category) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve(category);
+                    })
+            });
         }
 
     };

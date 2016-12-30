@@ -25,8 +25,6 @@ const categorySchema = new Schema({
         title: {
             type: String,
             required: true,
-            // minlength: constants.MIN_NAME_LENGTH,
-            // maxlength: constants.MAX_NAME_LENGTH
         }
         // image: {type: String, required: true}
     }]
