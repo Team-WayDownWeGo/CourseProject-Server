@@ -119,6 +119,18 @@ module.exports = ({ data }) => {
                 }).catch((err) => {
                     res.json({ message: "error" });
                 });
+        },
+        searchPost(req, res) {
+            const body = req.body,
+                searchName = req.params.search || '';
+
+            data.filterForumPosts(searchName)
+                .then((competitions) => {
+                    res.json(competitions);
+                })
+                .catch((err) => {
+                    res.json({ message: "error" });
+                });
         }
     };
 };

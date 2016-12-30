@@ -212,6 +212,23 @@ module.exports = function(models) {
                             }).catch(err => reject(err));
                     });
             });
-        }
+        },
+        filterForumPosts(searchName) {
+            return new Promise((resolve, reject) => {
+                // findOne({'username' : {$regex : '.*son.*'}});
+                const regex = { $regex: new RegExp(`.*${searchName}.*`, 'i') };
+                const titleRegex = { title: regex };
+                const descriptionRegex = { description: regex };
+                const categoryRegex = { category: regex };
+
+                ForumPost.find({ $or: [titleRegex, descriptionRegex, categoryRegex] }, (err, forumPosts) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    return resolve(forumPosts);
+                });
+            });
+        },
     };
 };
