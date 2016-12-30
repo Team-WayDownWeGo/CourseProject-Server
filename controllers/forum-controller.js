@@ -22,18 +22,11 @@ module.exports = ({ data }) => {
         createForumPost(req, res) {
             const body = req.body;
             data.createForumPost({
-<<<<<<< HEAD
-                title: body.title,
-                description: body.description,
-                user: { username: 'Gosho' }
-            })
-=======
                     title: body.title,
                     description: body.description,
                     user: { username: 'Gosho' },
                     category: body.category
                 })
->>>>>>> 7973d4491fbd5aeac71c0d415e05b46d701fabd8
                 .then((post) => {
                     const postToBeAdded = {
                         title: post.title,
