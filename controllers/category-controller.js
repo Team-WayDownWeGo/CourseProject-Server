@@ -1,6 +1,6 @@
 module.exports = ({ data }) => {
     return {
-        getCategory() {
+        getCategory(req, res) {
             data.getCategory()
                 .then(categories => {
                     res.json(categories);
