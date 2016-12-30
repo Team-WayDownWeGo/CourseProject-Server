@@ -27,10 +27,10 @@ module.exports = ({ data }) => {
         createForumPost(req, res) {
             const body = req.body;
             data.createForumPost({
-                    title: body.title,
-                    description: body.description,
-                    user: { username: 'Gosho' }
-                })
+                title: body.title,
+                description: body.description,
+                user: { username: 'Gosho' }
+            })
                 .then((post) => {
                     const postToBeAdded = {
                         title: post.title,
@@ -64,9 +64,9 @@ module.exports = ({ data }) => {
                 id = req.params.id;
 
             data.addAnswerToForumPost(id, {
-                    content: body.commentMessage,
-                    user: { username: 'Ivan' }
-                })
+                content: body.commentMessage,
+                user: { username: 'Ivan' }
+            })
                 .then(() => {
                     res.json({ message: "success" })
                 }).catch((err) => {
@@ -140,6 +140,17 @@ module.exports = ({ data }) => {
                 })
                 .catch((err) => {
                     res.json({ message: "error" });
+                });
+        },
+        getPostsByUsername(req, res) { //
+            const username = req.params.username;
+
+            data.getForumPostsByUsername(username)
+                .then(forumPosts => {
+                    res.json(forumPosts);
+                })
+                .catch((err) => {
+                    res.json({ message: 'error' });
                 });
         }
     };
