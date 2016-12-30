@@ -52,6 +52,7 @@ module.exports = function(models) {
             const newForumPost = new ForumPost({
                 title: forumPost.title,
                 description: forumPost.description,
+                category: forumPost.category,
                 user: forumPost.user,
                 date: new Date(),
                 likes: 0,
