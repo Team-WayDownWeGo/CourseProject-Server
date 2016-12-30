@@ -8,7 +8,7 @@ module.exports = ({ data }) => {
                     res.json({ message: 'error' });
                 })
         },
-        createCategory() {
+        createCategory(req, res) {
             const body = req.body;
             data.createCategory({
                     title: body.title,
