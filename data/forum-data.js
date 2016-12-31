@@ -231,5 +231,20 @@ module.exports = function(models) {
                 });
             });
         },
+        getForumPostsByUsername(username) {
+            return new Promise((resolve, reject) => {
+                ForumPost.find({ 'user.username': username }, (err, posts) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    if (!posts) {
+                        return resolve(null);
+                    }
+
+                    return resolve(posts);
+                });
+            })
+        }
     };
 };
