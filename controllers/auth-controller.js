@@ -62,6 +62,7 @@ module.exports = ({ data, config }) => {
                     }
                     if (user.isValidPassword(password)) {
                         let token = 'JWT ' + jwt.encode(user, config.jwtSecret);
+
                         let result = {
                             token,
                             username: user.username

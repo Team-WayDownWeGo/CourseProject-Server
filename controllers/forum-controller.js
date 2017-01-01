@@ -21,7 +21,6 @@ module.exports = ({ data }) => {
         },
         createForumPost(req, res) {
             const body = req.body;
-            console.log(body.user);
             data.createForumPost({
                     title: body.title,
                     description: body.description,
@@ -59,12 +58,12 @@ module.exports = ({ data }) => {
         },
         addComment(req, res) { //
             const body = req.body,
-                user = req.user,
+                user = body.user,
                 id = req.params.id;
 
             data.addAnswerToForumPost(id, {
                     content: body.commentMessage,
-                    user: { username: 'Ivan' }
+                    user: { username: user }
                 })
                 .then(() => {
                     res.json({ message: "success" })
@@ -73,9 +72,12 @@ module.exports = ({ data }) => {
                 });
         },
         addLikeToPost(req, res) {
+            console.log(req.body);
+            console.log('-----');
+            const body = req.body;
             const id = req.params.id;
             req.user = {
-                username: 'Pesho'
+                username: body.user
             }
             data.incrementForumPostLikes(id)
                 .then(() => data.addUsernameToPostUsersLiked(id, req.user.username))
@@ -86,9 +88,10 @@ module.exports = ({ data }) => {
                 });
         },
         unlikePost(req, res) {
+            const body = req.body;
             const id = req.params.id;
             req.user = {
-                username: 'Pesho'
+                username: body.user
             }
 
             data.decrementForumPostLikes(id)
@@ -100,10 +103,12 @@ module.exports = ({ data }) => {
                 });
         },
         addLikeToAnswer(req, res) {
-            const postId = req.params.id;
-            const answerId = req.params.answerid;
+            const postId = req.params.id,
+                answerId = req.params.answerid,
+                body = req.body;
+
             req.user = {
-                username: 'Pesho'
+                username: body.user
             }
 
             data.incrementForumPostAnswerLikes(postId, answerId)
@@ -115,10 +120,12 @@ module.exports = ({ data }) => {
                 });
         },
         unlikePostAnswer(req, res) {
-            const postId = req.params.id;
-            const answerId = req.params.answerid;
+            const postId = req.params.id,
+                answerId = req.params.answerid,
+                body = req.body;
+
             req.user = {
-                username: 'Pesho'
+                username: body.user
             }
 
             data.decrementForumPostAnswerLikes(postId, answerId)
