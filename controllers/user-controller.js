@@ -1,16 +1,18 @@
 module.exports = ({ data }) => {
     return {
         sendMessage(req, res) {
-            const username = req.params.username;
-            const body = req.body;
-            const message = {
-                message: body.message,
-                date: Date.now(),
-                user: {
-                    username: req.params.username
+            const body = req.body,
+
+                message = {
+                    message: body.message.message,
+                    date: Date.now(),
+                    user: {
+                        username: req.params.username
+                    },
+                    isViewed: false
                 },
-                isViewed: false
-            }
+                username = body.user;
+
 
             data.sendMessage({ username, message })
                 .then((mess) => {
@@ -53,7 +55,7 @@ module.exports = ({ data }) => {
 
         },
         getAllInboxMessagesFromUser(req, res) {
-            const username = 'Ivanna';
+            const username = req.body.user;
             const queryUser = req.params.username
             data.getAllInboxMessagesFromUser({ username, queryUser })
                 .then(outbox => {

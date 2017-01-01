@@ -43,7 +43,7 @@ const mongoose = require('mongoose'),
                 id: { type: String }
             },
             date: { type: Date, required: true },
-            isViewed: { type: Boolean, require: true }
+            isViewed: { type: Boolean, default: false }
         }],
         outbox: [{
             message: {
@@ -57,7 +57,7 @@ const mongoose = require('mongoose'),
                 id: { type: String }
             },
             date: { type: Date, required: true },
-            isViewed: { type: Boolean, required: true }
+            isViewed: { type: Boolean, default: false }
         }]
     });
 

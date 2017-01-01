@@ -20,7 +20,7 @@ module.exports = function(models) {
                     if (err) {
                         return reject(err);
                     }
-                    
+
                     return resolve(newUser);
                 });
             });
@@ -48,6 +48,7 @@ module.exports = function(models) {
                         }
 
                         username = message.user.username;
+
                         return ({ username, inboxMessage })
                     }).then(({ username, inboxMessage }) => {
                         User.findOneAndUpdate({ 'username': username }, { $push: { 'inbox': inboxMessage } })
