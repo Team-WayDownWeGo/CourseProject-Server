@@ -21,10 +21,11 @@ module.exports = ({ data }) => {
         },
         createForumPost(req, res) {
             const body = req.body;
+            console.log(body.user);
             data.createForumPost({
                     title: body.title,
                     description: body.description,
-                    user: { username: 'Gosho' },
+                    user: { username: body.user },
                     category: body.category
                 })
                 .then((post) => {
@@ -62,9 +63,9 @@ module.exports = ({ data }) => {
                 id = req.params.id;
 
             data.addAnswerToForumPost(id, {
-                content: body.commentMessage,
-                user: { username: 'Ivan' }
-            })
+                    content: body.commentMessage,
+                    user: { username: 'Ivan' }
+                })
                 .then(() => {
                     res.json({ message: "success" })
                 }).catch((err) => {
