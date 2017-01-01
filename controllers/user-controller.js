@@ -8,13 +8,13 @@ module.exports = ({ data }) => {
                 date: Date.now(),
                 user: {
                     username: req.params.username
-                }
+                },
+                isViewed: false
             }
 
             data.sendMessage({ username, message })
                 .then((mess) => {
                     return res.json(mess);
-                    console.log("sucess");
                 })
                 .catch((err) => {
                     console.log(err);
