@@ -1,7 +1,7 @@
 module.exports = ({ data }) => {
     return {
         sendMessage(req, res) {
-            const username = 'Gosho';
+            const username = req.params.username;
             const body = req.body;
             const message = {
                 message: body.message,

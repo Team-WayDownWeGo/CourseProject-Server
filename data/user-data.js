@@ -96,17 +96,12 @@ module.exports = function(models) {
             })
         },
         getAllInboxMessagesFromUser({ username, queryUser }) {
-            console.log('here')
-            console.log(username);
             return new Promise((resolve, reject) => {
                 User.findOne({ username }, (err, user) => {
                     if (err) {
                         return reject(err);
                     }
 
-                    console.log('here')
-                    console.log(username);
-                    console.log(user);
                     let messages = user.inbox.filter((el) => {
                         return (el.user.username == queryUser);
                     });
