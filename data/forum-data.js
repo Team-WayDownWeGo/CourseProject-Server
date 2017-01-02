@@ -22,6 +22,34 @@ module.exports = function(models) {
                 })
             })
         },
+        getAllForumPosts() {
+            return new Promise((resolve, reject) => {
+                ForumPost.find({}, (err, forumPosts) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    return resolve(forumPosts);
+                })
+            })
+        },
+        getPostsForHomePage(sortParam) {
+            const skip = 0,
+                limit = 5;
+            return new Promise((resolve, reject) => {
+                ForumPost.find({}, {}, {
+                    sort: { sortParam: -1 },
+                    skip,
+                    limit
+                }, (err, forumPosts) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    return resolve(forumPosts);
+                })
+            })
+        },
         getForumPostCount() {
             return new Promise((resolve, reject) => {
                 ForumPost.count({}, (err, count) => {
@@ -76,12 +104,12 @@ module.exports = function(models) {
 
             return new Promise((resolve, reject) => {
                 ForumPost.findByIdAndUpdate({ '_id': forumPostId }, { $push: { 'answers': answer } },
-                    (err) => {
+                    (err, post) => {
                         if (err) {
                             return reject(err);
                         }
 
-                        return resolve();
+                        return resolve(post);
                     })
             });
         },

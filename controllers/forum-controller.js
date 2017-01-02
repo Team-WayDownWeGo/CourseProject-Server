@@ -45,7 +45,7 @@ module.exports = ({ data }) => {
                     res.json(err);
                 });
         },
-        getByID(req, res) { //
+        getByID(req, res) {
             const id = req.params.id;
             const currentUser = req.user;
             data.getForumPostById(id)
@@ -65,8 +65,8 @@ module.exports = ({ data }) => {
                     content: body.commentMessage,
                     user: { username: user }
                 })
-                .then(() => {
-                    res.json({ message: "success" })
+                .then((post) => {
+                    res.json(post)
                 }).catch((err) => {
                     res.json(err)
                 });
@@ -157,6 +157,15 @@ module.exports = ({ data }) => {
                 })
                 .catch((err) => {
                     res.json({ message: 'error' });
+                });
+        },
+        getAllForumPosts(req, res) {
+            data.getAllForumPosts()
+                .then(posts => {
+                    res.json(posts);
+                })
+                .catch((err) => {
+                    res.json({ message: err });
                 });
         }
     };

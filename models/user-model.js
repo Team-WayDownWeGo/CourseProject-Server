@@ -31,6 +31,7 @@ const mongoose = require('mongoose'),
         },
         passHash: { type: String, required: true },
         salt: { type: String, required: true },
+        isAdmin: { type: Boolean, default: false },
         inbox: [{
             message: {
                 type: String,
