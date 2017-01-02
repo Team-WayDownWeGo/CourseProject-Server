@@ -76,10 +76,5 @@ module.exports = ({ data }) => {
                     res.json({ message: err });
                 });
         }
-<<<<<<< HEAD
-
-        
-=======
->>>>>>> 771a3f21b400952c2bfa4dab70e72d9bb846182a
     }
 }
