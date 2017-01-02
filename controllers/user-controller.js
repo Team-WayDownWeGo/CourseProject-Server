@@ -1,3 +1,5 @@
+const hashing = require('../utilities/encryption');
+
 module.exports = ({ data }) => {
     return {
         sendMessage(req, res) {
@@ -80,11 +82,13 @@ module.exports = ({ data }) => {
             console.log(req.body);
 
             const username = req.params.username;
-
+            const salt = hashing.getSalt();
+            const passHashFromBody = hashing.getPassHash(salt, req.body.password)
             const userInfo = {
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
-                passHas: req.body.password
+                passHash: passHashFromBody,
+                salt: salt
             };
 
             data.updateUserInformation(username, userInfo)
