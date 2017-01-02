@@ -16,18 +16,7 @@ const categorySchema = new Schema({
     },
     description: {
         type: String,
-        minlength: constants.MIN_DESCRIPTION_LENGTH,
-        maxlength: constants.MAX_DESCRIPTION_LENGTH
     },
-    // image: { type: String, required: true },
-    competitions: [{
-        _id: { type: String, required: true },
-        title: {
-            type: String,
-            required: true,
-        }
-        // image: {type: String, required: true}
-    }]
 });
 
 mongoose.model('Category', categorySchema);

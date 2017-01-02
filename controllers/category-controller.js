@@ -12,8 +12,8 @@ module.exports = ({ data }) => {
             const body = req.body;
             console.log(body);
             data.createCategory({
-                    title: body.title,
-                    description: body.description
+                    title: body.categoryName,
+                    description: body.categoryDescription
                 })
                 .then((category) => {
                     res.json(category)

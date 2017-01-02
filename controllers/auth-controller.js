@@ -65,7 +65,8 @@ module.exports = ({ data, config }) => {
 
                         let result = {
                             token,
-                            username: user.username
+                            username: user.username,
+                            isAdmin: user.isAdmin
                         };
 
                         return res.json({ result, success: `${username}, successfully logged in` });

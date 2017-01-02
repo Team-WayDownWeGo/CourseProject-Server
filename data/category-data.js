@@ -8,7 +8,6 @@ module.exports = function(models) {
             const newCategory = new Category({
                 title: category.title,
                 description: category.description,
-                competitions: []
             });
             return new Promise((resolve, reject) => {
                 newCategory.save(err => {
