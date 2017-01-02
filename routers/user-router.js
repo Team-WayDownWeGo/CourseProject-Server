@@ -9,6 +9,7 @@ module.exports = ({ app, controllers }) => {
     app.get('/user/:username', controller.getUserByUsername);
     app.post('/users/:username/edit', controller.editProfile);
     app.post('/user/message/:username', controller.sendMessage);
+    app.post('/user/message/change-status/:id', controller.changeMessageToViewed);
     app.get('/user/message/inbox', controller.getAllInboxMessages);
     app.get('/user/message/outbox', controller.getAllOutboxMessages);
     app.get('/user/message/outbox/:username', controller.getAllOutboxMessagesToUser);

@@ -98,6 +98,20 @@ module.exports = ({ data }) => {
                 .catch((err) => {
                     res.json({ error: 'Failed.' });
                 });
+        },
+        changeMessageToViewed(req, res) {
+            const username = req.params.username;
+            const messageId = req.params.id;
+            const newInfo = {
+                "isViewed": true
+            }
+            data.updateMessageStatus(messageId).then(() => {
+                return res.json({ success: 'Message status updated successfully' });
+            })
+                .catch((err) => {
+                    res.json({ error: 'Failed.' });
+                });
+            console.log(username);
         }
     }
 }
