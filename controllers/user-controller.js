@@ -67,13 +67,32 @@ module.exports = ({ data }) => {
         },
         getUserByUsername(req, res) { //
             const username = req.params.username;
-            console.log(username);
             data.getUserByUsername(username)
                 .then(user => {
                     res.json(user);
                 })
                 .catch((err) => {
                     res.json({ message: err });
+                });
+        },
+        editProfile(req, res) {
+            console.log('here');
+            console.log(req.body);
+
+            const username = req.params.username;
+
+            const userInfo = {
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                passHas: req.body.password
+            };
+
+            data.updateUserInformation(username, userInfo)
+                .then(() => {
+                    return res.json({ success: 'Updated successfully' });
+                })
+                .catch((err) => {
+                    res.json({ error: 'Failed.' });
                 });
         }
     }

@@ -109,6 +109,18 @@ module.exports = function (models) {
                     return resolve(messages);
                 })
             })
-        }
+        },
+
+        updateUserInformation(username, newInfo) {
+            return new Promise((resolve, reject) => {
+                User.findOneAndUpdate({ username }, newInfo,
+                    (err, user) => {
+                        if (err) {
+                            return reject(err);
+                        }
+                        return resolve(user);
+                    })
+            });
+        },
     }
 };
