@@ -75,6 +75,8 @@ module.exports = ({ data }) => {
                 .catch((err) => {
                     res.json({ message: err });
                 });
-        },
+        }
+
+        
     }
 }

@@ -2,7 +2,7 @@
 
 const hashing = require('../utilities/encryption');
 
-module.exports = function(models) {
+module.exports = function (models) {
     const User = models.User;
     return {
         createUser(user) {
@@ -48,7 +48,6 @@ module.exports = function(models) {
                         }
 
                         username = message.user.username;
-
                         return ({ username, inboxMessage })
                     }).then(({ username, inboxMessage }) => {
                         User.findOneAndUpdate({ 'username': username }, { $push: { 'inbox': inboxMessage } })
@@ -110,7 +109,6 @@ module.exports = function(models) {
                     return resolve(messages);
                 })
             })
-        },
-
+        }
     }
 };
