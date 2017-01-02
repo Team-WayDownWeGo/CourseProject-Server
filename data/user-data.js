@@ -122,5 +122,19 @@ module.exports = function (models) {
                     })
             });
         },
+
+        updateMessageStatus(messageId) {
+            return new Promise((resolve, reject) => {
+
+                User.update({ 'inbox._id': messageId }, {
+                    '$set': {
+                        'inbox.$.isViewed': true
+                    }
+                }, function (err) { reject(err) });
+
+                resolve();
+
+            });
+        },
     }
 };

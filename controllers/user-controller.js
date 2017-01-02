@@ -1,3 +1,5 @@
+const hashing = require('../utilities/encryption');
+
 module.exports = ({ data }) => {
     return {
         sendMessage(req, res) {
@@ -80,17 +82,29 @@ module.exports = ({ data }) => {
             console.log(req.body);
 
             const username = req.params.username;
-
+            const salt = hashing.getSalt();
+            const passHashFromBody = hashing.getPassHash(salt, req.body.password)
             const userInfo = {
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
-                passHas: req.body.password
+                passHash: passHashFromBody,
+                salt: salt
             };
 
             data.updateUserInformation(username, userInfo)
                 .then(() => {
                     return res.json({ success: 'Updated successfully' });
                 })
+                .catch((err) => {
+                    res.json({ error: 'Failed.' });
+                });
+        },
+        changeMessageToViewed(req, res) {
+            const messageId = req.params.id;
+          
+            data.updateMessageStatus(messageId).then(() => {
+                return res.json({ success: 'Message status updated successfully' });
+            })
                 .catch((err) => {
                     res.json({ error: 'Failed.' });
                 });

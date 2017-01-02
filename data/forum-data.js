@@ -103,7 +103,7 @@ module.exports = function(models) {
             answer.likes = 0;
 
             return new Promise((resolve, reject) => {
-                ForumPost.findByIdAndUpdate({ '_id': forumPostId }, { $push: { 'answers': answer } },
+                ForumPost.findByIdAndUpdate({ '_id': forumPostId }, { $push: { 'answers': answer } }, { new: true },
                     (err, post) => {
                         if (err) {
                             return reject(err);
